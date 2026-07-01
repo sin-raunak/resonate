@@ -13,6 +13,7 @@ class QCStatus(str, Enum):
 # Failure reason code 
 class ReasonCode(str, Enum): 
     SILENCE = "silence"
+    DUPLICATE = "duplicate"
     NONE = "none"
     CORRUPT = "corrupt"
 

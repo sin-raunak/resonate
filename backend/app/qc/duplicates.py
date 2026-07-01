@@ -26,7 +26,7 @@ def get_fingerprint(filepath: str) -> str:
     duration, fingerprint = acoustid.fingerprint_file(file_path)
     return fingerprint 
 
-def _fingerprint_similarity(fp1: str, fp2: str) -> float:
+def fingerprint_similarity(fp1: str, fp2: str) -> float:
     matches = sum(1 for a, b in zip(fp1, fp2) if a == b)
     return matches / max(len(fp1), len(fp2))
 
@@ -51,4 +51,7 @@ def check_near_duplicates(filepath: str, seen_fingerprints: dict[str, str]) -> Q
                 details=f"Fingerprint similarity {similarity:.2f} with clip {clip_id}",
             )
     
-    return QCCheckResult(check_name="duplicate_near", status=QCStatus.PASS)
+    return QCCheckResult(
+        check_name="duplicate_near", 
+        status=QCStatus.PASS
+        )

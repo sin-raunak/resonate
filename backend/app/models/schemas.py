@@ -20,7 +20,8 @@ class ReasonCode(str, Enum):
 # Manifest rows (clips)
 class ManifestRow(BaseModel):
     clip_id: str 
-    file_path: str 
+    vendor_id: str 
+    filepath: str 
     clip_type: str 
     language: str 
     speaker_id: Optional[str] = None 
@@ -33,3 +34,11 @@ class QCCheckResult(BaseModel):
     reason_code: ReasonCode = ReasonCode.NONE
     score: Optional[float] = None 
     details: Optional[str] = None 
+
+class ClipQCReport(BaseModel): 
+    clip_id: str 
+    filepath: str 
+    checks: list[QCCheckResult] = []
+    final_status: QCStatus = QCStatus.PASS
+    excluded: bool = False 
+    flags: list[str] = []

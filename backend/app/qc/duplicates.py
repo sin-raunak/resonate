@@ -1,6 +1,6 @@
 # duplicates.py
 
-import acousticid 
+import acoustid 
 from app.config import settings 
 from app.models.schemas import QCStatus, ReasonCode, QCCheckResult
 from app.qc.integrity import md5_hash 

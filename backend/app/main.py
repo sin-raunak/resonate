@@ -6,6 +6,7 @@ from app.api.routes import router
 
 
 app = FastAPI(title="Resonate API")
+app.openapi_version = "3.0.2"
 app.add_middleware(
     CORSMiddleware, 
     allow_origins=["*"], 

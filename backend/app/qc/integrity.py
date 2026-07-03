@@ -47,9 +47,9 @@ def check_integrity(filepath: str) -> QCCheckResult:
         status=QCStatus.PASS, 
     )
 
-def md5_hash(filename: str) -> str: 
+def md5_hash(filepath: str) -> str: 
     hasher = hashlib.md5()
-    with open(filename, "rb") as f: 
+    with open(filepath, "rb") as f: 
         for chunk in iter(lambda: f.read(8192), b""):
             hasher.update(chunk)
     return hasher.hexdigest()

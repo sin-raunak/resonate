@@ -1,5 +1,5 @@
 backend/venv/
-backend/app/upload/
+backend/upload/
 backend/app/tests/
 __pycache__/
 *.pyc

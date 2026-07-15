@@ -4,11 +4,13 @@ from app.models.schemas import ManifestRow, ClipQCReport, QCStatus
 from app.qc.silence import check_silence 
 from app.qc.integrity import check_integrity, md5_hash
 from app.qc.duplicates import check_exact_duplicates, check_near_duplicates
+from app.qc.text_audio_match import check_text_audio_match
 
 
 def run_pipeline(manifest_rows: list[ManifestRow]) -> list[ClipQCReport]:
     seen_hashes: dict[str, str] = {}
     seen_fingerprints: dict[str, str] = {}
+    all_texts = [manifest_row.proposed_text for manifest_row in manifest_rows]
     reports: list[ClipQCReport] = []
 
     for row in manifest_rows: 
@@ -51,6 +53,16 @@ def run_pipeline(manifest_rows: list[ManifestRow]) -> list[ClipQCReport]:
         if near_dup_result.status == QCStatus.REVIEW: 
             report.final_status = QCStatus.REVIEW
             report.flags.append("Possible duplicate") 
+        
+        # QC 4: Text Audio Match (using Whisper)
+        text_match_result = (row.filepath, row.proposed_text, all_texts):
+        report.checks.append(text_match_result)
+
+        if text_match_result.status == QCStatus.FAIL:
+            report.final_status = QCStatus.FAIL
+            report.excluded = True
+            reports.append(report)
+            continue
         
         reports.append(report)
     

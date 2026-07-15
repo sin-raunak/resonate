@@ -16,6 +16,7 @@ class ReasonCode(str, Enum):
     DUPLICATE = "duplicate"
     NONE = "none"
     CORRUPT = "corrupt"
+    TEXT_AUDIO_MISMATCH = "text_audio_mismatch"
 
 # Manifest rows (clips)
 class ManifestRow(BaseModel):
@@ -23,6 +24,7 @@ class ManifestRow(BaseModel):
     vendor_id: str 
     filepath: str 
     clip_type: str 
+    proposed_text: str 
     language: str 
     speaker_id: Optional[str] = None 
     speaker_id_inferred: Optional[str] = None

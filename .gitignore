@@ -1,9 +1,7 @@
-backend/venv/
-backend/upload/
-backend/app/tests/
+venv/
+upload/
+app/tests/
 __pycache__/
 *.pyc
 .env
-node_modules/
-dist/
 .DS_Store
